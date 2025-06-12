@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat Vending Gacha</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #fff6f9, #fce9f1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    .vending-machine {
+      width: 100%;
+      max-width: 600px;
+      background: #ffe4ec;
+      border: 5px solid #fcb7cf;
+      border-radius: 30px;
+      padding: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    .cat-ears {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 50px;
+      background: #fcb7cf;
+      border-radius: 50% 50% 0 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .ear {
+      width: 20px;
+      height: 50px;
+      background: #fcb7cf;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    .coin-input {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .coin-input input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #fcb7cf;
+    }
+    .coin-input button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #ff87ae;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .cans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 10px;
+    }
+    .can {
+      background: #fff;
+      border: 2px solid #fcb7cf;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .can:hover {
+      transform: scale(1.1);
+    }
+    .can img {
+      width: 50px;
+      height: 50px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 3px solid #fcb7cf;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+      text-align: center;
+    }
+    .popup img {
+      max-width: 150px;
+      display: block;
+      margin: auto;
+    }
+    .popup a {
+      display: block;
+      margin-top: 1rem;
+      color: #ff87ae;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="vending-machine">
+    <div class="cat-ears">
+      <div class="ear"></div>
+      <div class="ear"></div>
+    </div>
+    <div class="coin-input">
+      <input type="text" id="codeInput" placeholder="ใส่โค้ด...">
+      <button onclick="submitCode()">หยอดเหรียญ</button>
+    </div>
+    <div class="cans-grid" id="cansGrid"></div>
+  </div>
+
+  <div class="popup" id="popup">
+    <h3>คุณได้รับ:</h3>
+    <img id="popupImg" src="" alt="result">
+    <p id="popupText"></p>
+    <a id="popupLink" href="#" target="_blank">เปิดภาพต้นฉบับ</a>
+    <br>
+    <button onclick="closePopup()">สุ่มใหม่</button>
+  </div>
+
+  <audio id="meowSound" src="https://cdn.pixabay.com/audio/2022/03/16/audio_3fdb6e9b70.mp3"></audio>
+
+  <script>
+    const cans = [
+      { img: 'https://via.placeholder.com/70x70?text=1', text: 'แมวซ่อนอยู่~', link: '#' },
+      { img: 'https://via.placeholder.com/70x70?text=2', text: 'กระป๋องชมพูฟุ้งฟิ้ง', link: '#' },
+      { img: 'https://via.placeholder.com/70x70?text=3', text: 'อะไรอยู่ข้างในกันนะ?', link: '#' },
+      // เพิ่มอีกตามจำนวนที่ต้องการ
+    ];
+
+    function submitCode() {
+      const code = document.getElementById('codeInput').value;
+      if (code === '1234') {
+        document.getElementById('cansGrid').innerHTML = '';
+        cans.forEach((can, i) => {
+          const div = document.createElement('div');
+          div.className = 'can';
+          div.innerHTML = `<img src="${can.img}" alt="can${i + 1}">`;
+          div.onclick = () => revealCan(can);
+          document.getElementById('cansGrid').appendChild(div);
+        });
+      } else {
+        alert('โค้ดไม่ถูกต้อง');
+      }
+    }
+
+    function revealCan(can) {
+      document.getElementById('popupImg').src = can.img;
+      document.getElementById('popupText').innerText = can.text;
+      document.getElementById('popupLink').href = can.link;
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('meowSound').play();
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

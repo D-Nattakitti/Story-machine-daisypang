@@ -1,0 +1,215 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    overflow: hidden; /* ซ่อน scrollbar ถ้ามี */
+}
+
+.screen {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px; /* กำหนดขนาดสูงสุดของแต่ละหน้าจอ */
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Intro Screen (สำหรับ index.html) */
+#intro-screen h1 {
+    color: #333;
+}
+
+#code-input {
+    padding: 10px;
+    margin: 15px 0;
+    width: calc(100% - 22px);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.error-text {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.info-text {
+    color: #007bff;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Video Screen (ปรับให้วิดีโออยู่ในกรอบปกติ) */
+#video-screen video {
+    max-width: 100%; /* ทำให้วิดีโอไม่เกินความกว้างของ screen */
+    height: auto; /* รักษาอัตราส่วน */
+    border-radius: 8px; /* ขอบมน */
+    margin: 0 auto; /* จัดกึ่งกลาง */
+    display: block; /* แก้ปัญหาพื้นที่ว่างด้านล่างวิดีโอ */
+}
+
+
+/* Vending Machine Screen */
+.drinks-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.drink-item {
+    cursor: pointer;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.2s ease;
+    width: 120px;
+}
+
+.drink-item img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 5px;
+}
+
+.drink-item.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* Dispense Screen */
+#dispense-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+#can-fall-animation {
+    max-width: 150px;
+    height: auto;
+}
+
+/* Pop-up */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content img {
+    max-width: 150px;
+    height: auto;
+    margin: 15px 0;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .screen {
+        padding: 15px;
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .drinks-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .drink-item {
+        width: 80%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .drink-item img {
+        max-width: 80px;
+    }
+
+    .popup-content {
+        width: 90%;
+        padding: 15px;
+    }
+    .popup-content img {
+        max-width: 100px;
+    }
+}

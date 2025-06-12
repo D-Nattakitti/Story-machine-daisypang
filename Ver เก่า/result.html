@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ผลการสุ่ม</title>
+</head>
+<body>
+  <h1>ผลการสุ่ม</h1>
+  <div id="image-display"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const imageMap = {
+      1: "images/can1.jpg",
+      2: "images/can2.png",
+      3: "images/can3.png",
+      // ...
+      20: "images/can20.png"
+    };
+
+    document.getElementById("image-display").innerHTML = `
+      <img src="${imageMap[id]}" style="width:200px;" />
+      <p>นี่คือกระป๋องของคุณ!</p>
+    `;
+  </script>
+</body>
+</html>

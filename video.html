@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิดีโอ & ตู้กดน้ำ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="video-screen" class="screen active">
+        <video id="intro-video" width="100%" height="auto" preload="auto" autoplay muted playsinline>
+            <source src="videos/cat1.mp4" type="video/mp4">
+            เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+        </video>
+    </div>
+
+    <div id="vending-machine-screen" class="screen">
+        <h2>เลือกเครื่องดื่มของคุณ</h2>
+        <div class="drinks-container">
+            <div class="drink-item" data-drink-id="coke">
+                <img src="images/coke.png" alt="โค้ก">
+                <p>โค้ก</p>
+            </div>
+            <div class="drink-item" data-drink-id="sprite">
+                <img src="images/sprite.png" alt="สไปรท์">
+                <p>สไปรท์</p>
+            </div>
+            <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+            </div>
+                        <div class="drink-item" data-drink-id="fanta">
+                <img src="images/fanta.png" alt="แฟนต้า">
+                <p>แฟนต้า</p>
+        </div>
+        <button id="confirm-selection-btn" disabled>ยืนยันการเลือก</button>
+        <p id="selection-message" class="info-text"></p>
+    </div>
+
+    <div id="dispense-screen" class="screen">
+        <div class="dispense-animation">
+            <img src="images/can_shake_animation.gif" alt="กระป๋องกำลังตกลงมา" id="can-fall-animation">
+        </div>
+    </div>
+
+    <div id="result-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h3 id="popup-title"></h3>
+            <img src="" alt="สินค้าที่คุณเลือก" id="popup-image">
+            <p>ขอบคุณที่ใช้บริการ!</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

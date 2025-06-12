@@ -1,0 +1,94 @@
+/* รีเซ็ตเบื้องต้น */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+  background-color: #fef3e2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.vending-machine {
+  background-color: #b1e0d4;
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.cans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.can {
+  aspect-ratio: 3/4;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  border: 3px solid #ccc;
+  cursor: pointer;
+  transition: 0.2s;
+  background-image: url('your-can-image.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.can.selected {
+  border-color: #ff9a9e;
+  transform: scale(1.05);
+}
+
+button#drop-btn {
+  background-color: #ffb6b9;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  max-width: 300px;
+}
+
+button#drop-btn:hover {
+  background-color: #ff8c94;
+}
+
+.output-area {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  word-break: break-word;
+}
+
+/* เพิ่ม media query สำหรับหน้าจอเล็ก */
+@media (max-width: 480px) {
+  .can {
+    aspect-ratio: 3/4;
+    background-size: contain;
+  }
+
+  button#drop-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+.output-area {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+}
