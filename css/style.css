@@ -213,3 +213,48 @@ button:disabled {
         max-width: 100px;
     }
 }
+
+.intro-title {
+  text-align: center;
+  border: none; /* ตรวจสอบให้แน่ใจว่าไม่มี border */
+  /* border-width: 0; ถ้าใช้ border: none; ก็ไม่จำเป็นต้องมี border-width */
+  padding: 10px; /* หรือค่าอื่นๆ ที่เหมาะสม ลองปรับตัวเลขนี้ดูครับ */
+  /* ถ้าต้องการให้ div มีความกว้างที่แน่นอน หรือจำกัดความกว้าง */
+  max-width: 600px; /* ตัวอย่างค่า ให้ความกว้างไม่เกินนี้ */
+  border-radius: 15px; /* ถ้าต้องการมุมโค้งมน */
+}
+
+.imageindex1 {
+  width: auto; /* กำหนดให้รูปกว้างเต็มพื้นที่ของ parent div (.container) */
+
+  /* นี่คือค่าเริ่มต้นสำหรับ Desktop หรือหน้าจอขนาดใหญ่ */
+  margin-top: 50px;
+}
+
+/* Media Query สำหรับหน้าจอมือถือ */
+/* @media screen and (max-width: 768px) หมายความว่า:
+   - "screen" คือสำหรับหน้าจอ (ไม่ใช่ print หรืออื่นๆ)
+   - "(max-width: 768px)" คือ สไตล์เหล่านี้จะถูกใช้เมื่อความกว้างของหน้าจอไม่เกิน 768 พิกเซล
+     (ซึ่งเป็นขนาดที่นิยมใช้เป็นจุดตัดสำหรับอุปกรณ์มือถือ/แท็บเล็ตขนาดเล็ก)
+*/
+@media screen and (max-width: 768px) {
+  .imageindex1 {
+    margin-top: 50px; /* ปรับ margin-top ลงมาสำหรับหน้าจอมือถือ */
+  }
+  .intro-title {
+    margin-top: 10px;
+    h1 {
+        font-size: larger;
+    }
+
+  }
+
+}
+
+/* คุณอาจจะเพิ่ม Media Query สำหรับขนาดอื่นๆ ได้อีก เช่น:
+@media screen and (max-width: 480px) {
+  .imageindex1 {
+    margin-top: 30px; // สำหรับหน้าจอที่เล็กมากๆ
+  }
+}
+*/

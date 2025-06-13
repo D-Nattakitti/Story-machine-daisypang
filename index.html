@@ -5,32 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ยินดีต้อนรับ</title>
     <link rel="stylesheet" href="css/style.css">
+      <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #fff6f9, #fce9f1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    .vending-machine {
+      width: 100%;
+      max-width: 600px;
+      background: #ffe4ec;
+      border: 5px solid #fcb7cf;
+      border-radius: 30px;
+      padding: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    .cat-ears {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 50px;
+      background: #fcb7cf;
+      border-radius: 50% 50% 0 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .ear {
+      width: 20px;
+      height: 50px;
+      background: #fcb7cf;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    .coin-input {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .coin-input input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #fcb7cf;
+    }
+    .coin-input button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #ff87ae;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .cans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 10px;
+    }
+    .can {
+      background: #fff;
+      border: 2px solid #fcb7cf;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .can:hover {
+      transform: scale(1.1);
+    }
+    .can img {
+      width: 50px;
+      height: 50px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 3px solid #fcb7cf;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+      text-align: center;
+    }
+    .popup img {
+      max-width: 150px;
+      display: block;
+      margin: auto;
+    }
+    .popup a {
+      display: block;
+      margin-top: 1rem;
+      color: #ff87ae;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-
-    <div id="intro-screen" class="screen active">
-        <h1>ยินดีต้อนรับสู่ตู้กดน้ำเสมือนจริง</h1>
-        <p>กรุณากรอกรหัสเพื่อเริ่ม</p>
-        <input type="text" id="code-input" placeholder="กรอกรหัสของคุณ">
-        <button id="submit-code-btn">ยืนยัน</button>
+    <div class="imageindex1">
+        <img src="image/300-300.png" alt="logo">
+    </div>
+    <div class="intro-title">
+        <div class="vending-machine">
+            <h1>Daisypang Memory Shop</h1>
+                <div class="coin-input">
+                    <input type="text" id="codeInput" placeholder="ใส่รหัสตรงนี้" style="text-align: center;">
+                </div>
+            <button id="submit-code-btn" style="background-color: palevioletred;">หยอดเหรียญ</button>
+        </div>
         <p id="error-message" class="error-text"></p>
     </div>
 
-    <script>
-        const CORRECT_CODE = "1234"; // รหัสที่ถูกต้อง
+   <script>
+    const CORRECT_CODE = "1234"; // รหัสที่ถูกต้อง
 
-        document.getElementById('submit-code-btn').addEventListener('click', () => {
-            const enteredCode = document.getElementById('code-input').value.trim();
-            const errorMessage = document.getElementById('error-message');
+    document.getElementById('submit-code-btn').addEventListener('click', () => {
+        // แก้ไขตรงนี้: เปลี่ยน 'code-input' เป็น 'codeInput' (ตรงตาม HTML)
+        const enteredCode = document.getElementById('codeInput').value.trim();
+        const errorMessage = document.getElementById('error-message');
 
-            if (enteredCode === CORRECT_CODE) {
-                errorMessage.textContent = '';
-                // Redirect ไปยังหน้า video.html
-                window.location.href = 'video.html'; 
-            } else {
-                errorMessage.textContent = 'รหัสไม่ถูกต้อง กรุณาลองอีกครั้ง';
-            }
-        });
-    </script>
+        if (enteredCode === CORRECT_CODE) {
+            errorMessage.textContent = '';
+            // Redirect ไปยังหน้า video.html
+            window.location.href = 'video.html';
+        } else {
+            errorMessage.textContent = 'รหัสไม่ถูกต้อง กรุณาลองอีกครั้ง';
+        }
+    });
+</script>
 </body>
 </html>
