@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f8ff; /* สีพื้นหลังเริ่มต้น */
+    background-color: #db599a; /* สีพื้นหลังเริ่มต้น */
     color: #333;
     box-sizing: border-box; /* สำคัญสำหรับทุก element */
 }
@@ -24,6 +24,16 @@ body {
     width: 90%;
     box-sizing: border-box;
     margin: 20px auto; /* เพิ่ม margin เพื่อให้มีที่ว่าง */
+}
+
+.initial-setup-container .header-image {
+    max-width: 100%; /* ทำให้รูปไม่เกินความกว้างของ container */
+    height: auto;
+    display: block; /* ลบช่องว่างใต้รูปภาพ */
+    margin: 20px auto 20px auto; /* ดึงรูปขึ้นไปด้านบน 30px (เท่ากับ padding ของ container) และมี margin-bottom */
+    /* หรือถ้าอยากให้ล้นออกไปข้างบนกรอบ ก็ใช้ negative margin-top ที่มากกว่า padding */
+    border-top-left-radius: 15px; /* ถ้าอยากให้มุมรูปโค้งตามกรอบ */
+    border-top-right-radius: 15px;
 }
 
 h1 {
