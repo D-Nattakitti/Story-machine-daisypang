@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เติมเหรียญ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="topup-container">
+        <h1>เติมเหรียญ</h1>
+        <input type="text" id="topupCodeInput" placeholder="ใส่โค้ดเติมเหรียญ">
+        <button id="topupSubmitBtn">เติมเหรียญ</button>
+        <p id="topupMessage" class="error-text"></p>
+        <button id="backToSelectionBtn" class="action-button">กลับหน้าเลือก</button>
+    </div>
+
+    <script>
+        const TOPUP_CODES = {
+            "CAT": 10,
+            "DAISYPANG": 25,
+            "KRAPANG": 50,
+            "BABYMONSTER": 10
+        };
+        const COIN_COUNT_KEY = "daisyfangCoins";
+        const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount";
+        const MAX_EARN_COUNT = 50;
+
+        function getCoins() {
+            return parseInt(localStorage.getItem(COIN_COUNT_KEY) || '0');
+        }
+
+        function setCoins(coins) {
+            localStorage.setItem(COIN_COUNT_KEY, coins.toString());
+        }
+
+        function getCoinEarnCount() {
+            return parseInt(localStorage.getItem(COIN_EARN_COUNT_KEY) || '0');
+        }
+
+        function setCoinEarnCount(count) {
+            localStorage.setItem(COIN_EARN_COUNT_KEY, count.toString());
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('topupSubmitBtn').addEventListener('click', () => {
+                const enteredCode = document.getElementById('topupCodeInput').value.trim().toUpperCase();
+                const message = document.getElementById('topupMessage');
+                let currentEarnCount = getCoinEarnCount();
+
+                if (TOPUP_CODES[enteredCode]) {
+                    if (currentEarnCount < MAX_EARN_COUNT) {
+                        const addedCoins = TOPUP_CODES[enteredCode];
+                        let currentTotalCoins = getCoins();
+                        currentTotalCoins += addedCoins;
+                        setCoins(currentTotalCoins);
+
+                        setCoinEarnCount(currentEarnCount + 1);
+
+                        message.textContent = `โค้ดถูกต้อง! คุณได้รับ ${addedCoins} เหรียญ! เหรียญรวม: ${currentTotalCoins}`;
+                        message.style.color = 'green';
+                        document.getElementById('topupCodeInput').value = '';
+
+                        setTimeout(() => {
+                            window.location.href = 'page2_video.html'; // ไปหน้า 2 เพื่อดูวิดีโอรางวัล
+                        }, 1500);
+                    } else {
+                        // *** ส่วนที่เพิ่ม/แก้ไข: หากเหรียญเต็ม ให้ Redirect กลับไปหน้า 3 ***
+                        message.textContent = `ไม่สามารถรับเหรียญได้อีก! คุณถึงขีดจำกัด ${MAX_EARN_COUNT} ครั้งแล้ว`;
+                        message.style.color = 'orange';
+                        document.getElementById('topupCodeInput').value = ''; // ล้างช่องกรอกโค้ด
+
+                        setTimeout(() => {
+                            window.location.href = 'page3_random_selection.html'; // กลับหน้า 3 ทันที
+                        }, 2000); // หน่วงเวลาเล็กน้อยเพื่อให้ผู้ใช้เห็นข้อความเตือน
+                    }
+                } else {
+                    message.textContent = 'โค้ดไม่ถูกต้อง กรุณาลองใหม่';
+                    message.style.color = 'red';
+                }
+            });
+
+            document.getElementById('backToSelectionBtn').addEventListener('click', () => {
+                window.location.href = 'page3_random_selection.html';
+            });
+        });
+    </script>
+</body>
+</html>

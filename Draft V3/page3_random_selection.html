@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daisypang - สุ่มรูป</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main-selection-container">
+        <button id="clearDataBtn" class="clear-data-button">ล้างข้อมูล &amp; เริ่มใหม่</button>
+
+        <h1 id="welcomeMessage"></h1>
+        <p id="mainCoinDisplay">เหรียญของคุณ: <span id="currentCoinsMain">0</span></p>
+
+        <h2>เลือกรูปเพื่อสุ่ม (5 เหรียญ)</h2>
+        <div class="image-selection-grid">
+            <div class="image-item" data-image-id="char1" data-image-src="images/CAT.png" data-link="https://www.instagram.com/p/C2EugCdPrkt/">
+                <img src="images/CAT.png" alt="ตัวละคร 1">
+                <p>ตัวละคร 1</p>
+            </div>
+            <div class="image-item" data-image-id="char2" data-image-src="images/CAT.png" data-link="https://www.facebook.com/Zxadee44">
+                <img src="images/CAT.png" alt="ตัวละคร 2">
+                <p>ตัวละคร 2</p>
+            </div>
+            <div class="image-item" data-image-id="char3" data-image-src="images/CAT.png" data-link="https://www.facebook.com/Zxadee44">
+                <img src="images/CAT.png" alt="ตัวละคร 3">
+                <p>ตัวละคร 3</p>
+            </div>
+                <div class="image-item" data-image-id="char3" data-image-src="images/CAT.png" data-link="https://www.facebook.com/Zxadee44">
+                <img src="images/CAT.png" alt="ตัวละคร 3">
+                <p>ตัวละคร 4</p>
+            </div>
+                <div class="image-item" data-image-id="char3" data-image-src="images/CAT.png" data-link="https://www.facebook.com/Zxadee44">
+                <img src="images/CAT.png" alt="ตัวละคร 3">
+                <p>ตัวละคร 5</p>
+            </div>
+                <div class="image-item" data-image-id="char3" data-image-src="images/CAT.png" data-link="https://www.facebook.com/Zxadee44">
+                <img src="images/CAT.png" alt="ตัวละคร 3">
+                <p>ตัวละคร 6</p>
+            </div>
+        </div>
+        <button id="confirmSelectionBtn" disabled>ยืนยันการเลือก (-5 เหรียญ)</button>
+        <p id="selectionMessage" class="info-text"></p>
+
+        <hr>
+        <button id="topUpCoinsLink" class="action-button">เติมเหรียญ</button>
+    </div>
+
+    <div id="result-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h3 id="popup-title"></h3>
+            <img src="" alt="ผลการสุ่ม" id="popup-image">
+            <p id="popup-text"></p>
+            <a href="#" id="popup-link" target="_blank">ดูเพิ่มเติม</a>
+        </div>
+    </div>
+
+    <script>
+        const USER_NAME_KEY = "daisyfangUserName";
+        const COIN_COUNT_KEY = "daisyfangCoins";
+        const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount";
+        const PENDING_COINS_KEY = "daisyfangPendingCoins"; // เพิ่ม Key นี้ด้วย
+        const COIN_COST_PER_SELECTION = 5;
+
+        const imageItems = document.querySelectorAll('.image-item');
+        const confirmButton = document.getElementById('confirmSelectionBtn');
+        const selectionMessage = document.getElementById('selectionMessage');
+        const topUpButton = document.getElementById('topUpCoinsLink');
+        const clearDataButton = document.getElementById('clearDataBtn'); // Get the new button
+
+        const resultPopup = document.getElementById('result-popup');
+        const popupTitle = document.getElementById('popup-title');
+        const popupImage = document.getElementById('popup-image');
+        const popupText = document.getElementById('popup-text');
+        const popupLink = document.getElementById('popup-link');
+        const closePopupButton = resultPopup.querySelector('.close-button');
+
+        let selectedImageItem = null;
+
+        // Coin Management Functions
+        function getCoins() {
+            return parseInt(localStorage.getItem(COIN_COUNT_KEY) || '0');
+        }
+
+        function setCoins(coins) {
+            localStorage.setItem(COIN_COUNT_KEY, coins.toString());
+            updateCoinDisplay();
+        }
+
+        function updateCoinDisplay() {
+            document.getElementById('currentCoinsMain').textContent = getCoins();
+        }
+
+        // Function to clear all data and redirect
+        function clearAllData() {
+            if (confirm("คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลทั้งหมดและเริ่มต้นใหม่?")) {
+                localStorage.removeItem(USER_NAME_KEY);
+                localStorage.removeItem(COIN_COUNT_KEY);
+                localStorage.removeItem(COIN_EARN_COUNT_KEY);
+                localStorage.removeItem(PENDING_COINS_KEY); // เคลียร์ pending coins ด้วย
+                // If you have other localStorage keys for this app, add them here too.
+
+                alert("ข้อมูลถูกล้างเรียบร้อยแล้ว จะกลับไปหน้าแรก");
+                window.location.href = 'index.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem(USER_NAME_KEY);
+            if (!userName) {
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('welcomeMessage').textContent = `สวัสดี, ${userName}!`;
+            updateCoinDisplay();
+
+            imageItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    imageItems.forEach(d => d.classList.remove('selected'));
+                    item.classList.add('selected');
+                    selectedImageItem = item;
+                    confirmButton.disabled = false;
+                    selectionMessage.textContent = `คุณเลือก: ${item.querySelector('p').textContent}`;
+                    selectionMessage.style.color = '#555';
+                });
+            });
+
+            confirmButton.addEventListener('click', () => {
+                if (selectedImageItem) {
+                    let currentCoins = getCoins();
+                    if (currentCoins >= COIN_COST_PER_SELECTION) {
+                        currentCoins -= COIN_COST_PER_SELECTION;
+                        setCoins(currentCoins);
+
+                        popupTitle.textContent = `ยินดีด้วย! คุณได้รับ ${selectedImageItem.querySelector('p').textContent}`;
+                        popupImage.src = selectedImageItem.dataset.imageSrc;
+                        popupText.textContent = "หวังว่าคุณจะชอบนะ! คลิกดูเพิ่มเติมด้านล่าง";
+                        popupLink.href = selectedImageItem.dataset.link;
+                        resultPopup.style.display = 'flex';
+
+                        selectedImageItem = null;
+                        imageItems.forEach(d => d.classList.remove('selected'));
+                        confirmButton.disabled = true;
+                        selectionMessage.textContent = '';
+
+                    } else {
+                        selectionMessage.textContent = 'เหรียญไม่พอ! กรุณาเติมเหรียญ';
+                        selectionMessage.style.color = 'red';
+                    }
+                } else {
+                    selectionMessage.textContent = 'กรุณาเลือกรูปภาพก่อนยืนยัน';
+                    selectionMessage.style.color = 'red';
+                }
+            });
+
+            topUpButton.addEventListener('click', () => {
+                window.location.href = 'page4_topup.html';
+            });
+
+            closePopupButton.addEventListener('click', () => {
+                resultPopup.style.display = 'none';
+            });
+
+            // Event listener for the new clear data button
+            clearDataButton.addEventListener('click', clearAllData);
+        });
+    </script>
+</body>
+</html>

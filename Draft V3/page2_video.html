@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิดีโอรับเหรียญ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="video-player-container">
+        <video id="rewardVideoPlayer" autoplay muted playsinline>
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="coinStatus">
+        เหรียญคงเหลือ: <span id="currentCoins">0</span>
+    </div>
+
+    <script>
+        const videoList = [
+            'videos/cat1.mp4'/*,
+            'videos/cat2.mp4',
+            'videos/cat3.mp4',
+            'videos/cat4.mp4',
+            'videos/cat5.mp4',
+            'videos/cat6.mp4'
+            */
+        ];
+        const PENDING_COINS_KEY = "daisyfangPendingCoins"; // Key สำหรับเหรียญที่รอเพิ่ม
+        const COIN_COUNT_KEY = "daisyfangCoins";
+        const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount";
+        const MAX_EARN_COUNT = 50;
+        const VIDEO_MAX_DURATION = 15 * 1000; // 15 วินาที
+
+        const videoPlayer = document.getElementById('rewardVideoPlayer');
+        const coinCountSpan = document.getElementById('currentCoins');
+
+        // Coin Management Functions (เหมือนเดิม)
+        function getCoins() {
+            return parseInt(localStorage.getItem(COIN_COUNT_KEY) || '0');
+        }
+
+        function setCoins(coins) {
+            localStorage.setItem(COIN_COUNT_KEY, coins.toString());
+            updateCoinDisplay();
+        }
+
+        function getCoinEarnCount() {
+            return parseInt(localStorage.getItem(COIN_EARN_COUNT_KEY) || '0');
+        }
+
+        function setCoinEarnCount(count) {
+            localStorage.setItem(COIN_EARN_COUNT_KEY, count.toString());
+        }
+
+        function updateCoinDisplay() {
+            coinCountSpan.textContent = getCoins();
+        }
+
+        function getRandomVideoUrl() {
+            const randomIndex = Math.floor(Math.random() * videoList.length);
+            return videoList[randomIndex];
+        }
+
+        let videoTimeoutId;
+
+        function handleVideoEnd() {
+            // ป้องกันการทำงานซ้ำ
+            if (videoPlayer.hasAttribute('data-redirect-initiated')) {
+                return;
+            }
+            videoPlayer.setAttribute('data-redirect-initiated', 'true');
+
+            if (videoTimeoutId) clearTimeout(videoTimeoutId);
+
+            alert('วิดีโอจบแล้ว! กำลังกลับสู่หน้าหลัก...');
+            window.location.href = 'page3_random_selection.html'; // กลับไปหน้า 3
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. ตรวจสอบและเพิ่มเหรียญที่ค้างอยู่
+            const pendingCoins = parseInt(localStorage.getItem(PENDING_COINS_KEY) || '0');
+            localStorage.removeItem(PENDING_COINS_KEY); // ลบเหรียญที่ค้างอยู่หลังจากหยิบมาแล้ว
+
+            if (pendingCoins > 0) {
+                let currentCoins = getCoins();
+                let earnCount = getCoinEarnCount();
+
+                 if (earnCount < MAX_EARN_COUNT) { // ส่วนนี้จะถูกเช็คที่หน้า 4 แล้ว
+                    currentCoins += pendingCoins;
+                    setCoins(currentCoins);
+                    setCoinEarnCount(earnCount + 1); // <--- ลบบรรทัดนี้ออกไป
+                    alert(`คุณได้รับ ${pendingCoins} เหรียญ!`);
+                } else {
+                    alert('ไม่สามารถรับเหรียญได้อีก! คุณถึงขีดจำกัดแล้ว (' + MAX_EARN_COUNT + ' ครั้ง)');
+                }
+            } else {
+                // ถ้าไม่มีเหรียญที่รอเพิ่ม อาจหมายถึงมาจากหน้า 3 (สุ่มรูป) หรือเข้ามาโดยตรง
+                // ให้เช็คว่ามีเหรียญพอสำหรับสุ่มรูปหรือไม่ (ถ้ามาจากการสุ่มรูป)
+                // แต่ใน Flow ใหม่นี้ หน้า page2_video.html จะถูกเรียกเมื่อมีการ "ได้เหรียญ" เท่านั้น
+                // ถ้ามาหน้า 2 โดยไม่มี pendingCoins แสดงว่าอาจจะมาผิด flow หรือต้องกำหนด logic อื่นๆ
+                // สำหรับตอนนี้ ถ้าไม่มี pendingCoins ก็ยังเล่นวิดีโอได้ แต่ไม่ได้เหรียญ
+            }
+
+            // 2. เล่นวิดีโอ
+            videoPlayer.src = getRandomVideoUrl();
+            videoPlayer.load();
+
+            videoPlayer.play().catch(error => {
+                console.warn("Autoplay was prevented:", error);
+                // ผู้ใช้อาจจะต้องกด Play เอง
+            });
+
+            updateCoinDisplay(); // อัปเดตการแสดงผลเหรียญ
+
+            // กำหนด Timeout สำหรับวิดีโอ 15 วินาที
+            videoTimeoutId = setTimeout(() => {
+                if (!videoPlayer.paused && !videoPlayer.ended) {
+                    videoPlayer.pause();
+                    handleVideoEnd();
+                }
+            }, VIDEO_MAX_DURATION);
+
+            // Event listener เมื่อวิดีโอเล่นจบตามธรรมชาติ
+            videoPlayer.addEventListener('ended', handleVideoEnd);
+        });
+    </script>
+</body>
+</html>
