@@ -17,14 +17,15 @@
 
     <script>
         const TOPUP_CODES = {
-            "CAT": 10,
-            "DAISYPANG": 25,
-            "KRAPANG": 50,
-            "BABYMONSTER": 10
+            "Daisypang": 5,
+            "daisypang": 5,
+            "mr.yellowbear": 5,
+            "BABYMONSTER": 5,
+            "yellowbear":5
         };
         const COIN_COUNT_KEY = "daisyfangCoins";
         const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount";
-        const MAX_EARN_COUNT = 50;
+        const MAX_EARN_COUNT = 20;
 
         function getCoins() {
             return parseInt(localStorage.getItem(COIN_COUNT_KEY) || '0');
