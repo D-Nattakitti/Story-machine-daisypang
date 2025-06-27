@@ -54,15 +54,25 @@ body {
     align-items: center;
     opacity: 0;
     transform: translateX(100%);
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; /* เพิ่มความช้า */
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
     background-color: var(--paper-color);
     border-radius: 35px;
+    z-index: 1; /* กำหนดค่าเริ่มต้นให้ z-index เป็น 1 */
 }
 
 .screen.active {
     opacity: 1;
     transform: translateX(0);
     position: relative;
+    z-index: 10; /* เมื่อ active ให้ z-index สูงขึ้น เพื่อให้มาอยู่ด้านบนสุด */
+}
+
+/* คุณอาจจะต้องเพิ่ม CSS สำหรับ video โดยตรง เพื่อควบคุมตำแหน่งในหน้า result-screen */
+#result-screen .animation-area video {
+    /* ถ้ายังมีปัญหาการทับในจอเล็กๆ */
+    /* อาจจะลองปรับ margin-bottom หรือตำแหน่งเล็กน้อย */
+    /* margin-bottom: 20px; */
+    /* หรือใช้ flexbox จัดการการจัดวางใน animation-area */
 }
 
 /* Home Screen Specifics */
