@@ -1,0 +1,373 @@
+:root {
+    --primary-pink: #FFC0CB; /* Light Pink */
+    --accent-pink: #FF69B4; /* Hot Pink */
+    --soft-blue: #ADD8E6;  /* Light Blue */
+    --soft-green: #90EE90; /* Light Green */
+    --text-dark: #5A4A4A;
+    --text-light: #707070;
+    --paper-color: #FFFCEF; /* Creamy White */
+}
+
+body {
+    font-family: 'Mali', cursive, sans-serif; /* ฟอนต์ลายมือน่ารักๆ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #fef0f7 0%, #e0c3fc 100%); /* ไล่สีชมพู-ม่วงพาสเทล */
+    color: var(--text-dark);
+    overflow: hidden;
+    cursor: url('assets/paw-cursor.png'), auto; /* Cursor อุ้งเท้าแมว */
+}
+
+.container {
+    background-color: var(--paper-color); /* สีเหมือนกระดาษ */
+    border-radius: 35px; /* โค้งมนเป็นพิเศษ */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 0 0 5px rgba(255, 255, 255, 0.5); /* เงาและขอบขาวด้านนอก */
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 550px; /* กว้างขึ้นเล็กน้อย */
+    position: relative;
+    overflow: hidden;
+    min-height: 450px; /* สูงขึ้นเล็กน้อย */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed #FFD1DC; /* เส้นประชมพูอ่อนๆ */
+}
+
+/* Screens Transition */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; /* เพิ่มความช้า */
+    background-color: var(--paper-color);
+    border-radius: 35px;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+}
+
+/* Home Screen Specifics */
+#home-screen {
+    background: var(--paper-color) url('assets/bg-pattern-home.png') repeat; /* ลายแพทเทิร์นหน้าแรก */
+    background-size: 100px;
+}
+
+/* Dynamic Backgrounds for Result Screen */
+body.theme-dessert {
+    background: linear-gradient(135deg, #fce4ec 0%, #ffc0cb 100%);
+    background-image: url('assets/bg-pattern-sweet.png');
+    background-size: 150px;
+}
+body.theme-drink {
+    background: linear-gradient(135deg, #e0f2f7 0%, #add8e6 100%);
+    background-image: url('assets/bg-pattern-drink.png');
+    background-size: 150px;
+}
+body.theme-random {
+    background: linear-gradient(135deg, #fcfbe3 0%, #c3fce0 100%); /* สีสดใสผสม */
+    background-image: url('assets/bg-pattern-star.png'); /* สมมติมีลายดาว */
+    background-size: 120px;
+}
+
+
+h1, h2 {
+    font-family: 'Charmonman', cursive; /* ฟอนต์หัวข้อที่ดูเป็นลายมือพิเศษ */
+    color: var(--accent-pink);
+    margin-bottom: 20px;
+    font-size: 2.8em; /* ใหญ่ขึ้น */
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.08); /* เงาที่ดูนุ่มนวล */
+    line-height: 1.2;
+}
+
+p {
+    font-size: 1.2em; /* ใหญ่ขึ้น */
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: var(--text-light);
+}
+
+.intro-text {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--accent-pink);
+    margin-bottom: 10px;
+}
+
+.small-text {
+    font-size: 1em;
+    color: #999;
+    margin-top: 20px;
+}
+
+.category-buttons button {
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+    padding: 18px 35px; /* ใหญ่ขึ้น */
+    margin: 12px; /* ห่างขึ้น */
+    border-radius: 30px; /* มนยิ่งขึ้น */
+    font-size: 1.3em; /* ใหญ่ขึ้น */
+    cursor: pointer;
+    transition: all 0.3s ease; /* transition ที่นุ่มนวลขึ้น */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* เงาที่ชัดเจน */
+    font-weight: 600;
+}
+
+.category-buttons button:hover {
+    background-color: var(--accent-pink);
+    transform: translateY(-5px) rotate(2deg); /* ยกขึ้นเล็กน้อยและเอียงนิดๆ */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-buttons button:active {
+    transform: translateY(-1px) rotate(0deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation Area */
+.animation-area img {
+    max-width: 100%;
+    height: auto;
+    max-height: 280px; /* ใหญ่ขึ้นเล็กน้อย */
+    margin-bottom: 20px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Speech Bubble */
+.speech-bubble {
+    background-color: #fcebeb;
+    border: 2px solid var(--accent-pink);
+    border-radius: 25px; /* มนขึ้น */
+    padding: 12px 25px;
+    position: relative;
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #d14f7b;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    min-width: 200px; /* กำหนดขั้นต่ำ */
+    max-width: 80%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.speech-bubble.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Arrow for speech bubble */
+.speech-bubble::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid var(--accent-pink);
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.speech-bubble::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #fcebeb;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* Result Area */
+.result-area img {
+    max-width: 200px; /* ใหญ่ขึ้น */
+    height: auto;
+    margin-bottom: 20px;
+    animation: bounceIn 0.9s ease-out; /* แอนิเมชันของตก */
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3) translateY(-50px); opacity: 0; }
+    50% { transform: scale(1.1) translateY(10px); opacity: 1; }
+    70% { transform: scale(0.9) translateY(-5px); }
+    100% { transform: scale(1) translateY(0); }
+}
+
+#item-message {
+    font-size: 1.6em; /* ใหญ่ขึ้น */
+    color: var(--accent-pink);
+    margin-bottom: 35px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.action-buttons button {
+    background-color: var(--soft-blue);
+    color: white;
+    border: none;
+    padding: 15px 30px; /* ใหญ่ขึ้น */
+    margin: 10px;
+    border-radius: 25px; /* มนขึ้น */
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+
+.action-buttons button:first-child {
+    background-color: var(--soft-blue); /* ฟ้าอ่อน */
+}
+.action-buttons button:last-child {
+    background-color: var(--soft-green); /* เขียวอ่อน */
+}
+
+.action-buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+.action-buttons button:first-child:hover { background-color: #85c1e9; }
+.action-buttons button:last-child:hover { background-color: #76c776; }
+
+
+.hidden {
+    display: none !important;
+}
+
+/* History Screen */
+#history-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* ปรับขนาด */
+    gap: 18px; /* ห่างขึ้น */
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    border: 2px dashed #ffe0f0; /* กรอบเส้นประน่ารัก */
+    border-radius: 15px;
+    margin-bottom: 25px;
+    background-color: #fffafa; /* พื้นหลังอ่อนๆ */
+}
+
+.history-item {
+    background-color: #ffeef2; /* ชมพูอ่อนมาก */
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+.history-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.history-item img {
+    max-width: 90px; /* ใหญ่ขึ้น */
+    height: auto;
+    margin-bottom: 8px;
+}
+
+#back-to-home-from-history-btn {
+    background-color: #f1948a;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1.1em;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+#back-to-home-from-history-btn:hover {
+    background-color: #e7766a;
+    transform: translateY(-3px);
+}
+
+/* ใน style.css */
+
+.freebie-section {
+    background-color: #f8f0ff; /* สีม่วงอ่อนๆ */
+    border: 2px dashed #d8b4ff; /* เส้นประม่วง */
+    border-radius: 20px;
+    padding: 20px 15px;
+    margin-top: 30px;
+    margin-bottom: 25px; /* เพิ่มพื้นที่ด้านล่าง */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 1s ease-out; /* แอนิเมชันปรากฏ */
+    width: 90%;
+    max-width: 400px;
+}
+
+.freebie-title {
+    font-family: 'Charmonman', cursive;
+    color: #8a2be2; /* สีม่วงเข้ม */
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.freebie-image {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px; /* ทำให้รูปโค้งมนเล็กน้อย */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.freebie-text {
+    font-size: 1.1em;
+    color: #6a5acd; /* สีม่วงกลางๆ */
+    margin-bottom: 20px;
+}
+
+.freebie-btn {
+    background-color: #9370DB; /* สีม่วงอ่อน */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+
+.freebie-btn:hover {
+    background-color: #8A2BE2; /* ม่วงเข้มขึ้น */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บ้านวาดฝันของบอสเดซี่ปาง</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="initial-setup-container">
+        <img src="images/300-300.webp" alt="ตกแต่งตู้" class="header-image">
+        <h1>ยินดีต้อนรับสู่ร้านอบอุ่น</h1>
+        <input type="text" id="userNameInput" placeholder="ให้เราเรียกคุณว่าอะไรดี?">
+        <button id="saveUserNameBtn">เข้าสู่ร้านค้า</button>
+        <p id="initialErrorMessage" class="error-text"></p>
+    </div>
+
+    <script>
+        const USER_NAME_KEY = "daisyfangUserName"; // Key สำหรับเก็บชื่อผู้ใช้
+        const COIN_COUNT_KEY = "daisyfangCoins"; // Key สำหรับเก็บเหรียญ
+        const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount"; // Key สำหรับนับครั้งที่ได้เหรียญ
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // ตรวจสอบว่ามีชื่อผู้ใช้แล้วหรือไม่
+            if (localStorage.getItem(USER_NAME_KEY)) {
+                window.location.href = 'page3_random_selection.html'; // มีแล้ว ไปหน้า 3 เลย
+            }
+
+            // ตั้งค่าเหรียญเริ่มต้นและจำนวนครั้งที่ได้เหรียญ หากยังไม่มี
+            if (!localStorage.getItem(COIN_COUNT_KEY)) {
+                localStorage.setItem(COIN_COUNT_KEY, '0');
+            }
+            if (!localStorage.getItem(COIN_EARN_COUNT_KEY)) {
+                localStorage.setItem(COIN_EARN_COUNT_KEY, '0');
+            }
+
+            document.getElementById('saveUserNameBtn').addEventListener('click', () => {
+                const userName = document.getElementById('userNameInput').value.trim();
+                const errorMessage = document.getElementById('initialErrorMessage');
+
+                if (userName) {
+                    localStorage.setItem(USER_NAME_KEY, userName); // บันทึกชื่อผู้ใช้
+                    errorMessage.textContent = '';
+                    window.location.href = 'page3_random_selection.html'; // ไปหน้า 3
+                } else {
+                    errorMessage.textContent = 'กรุณาใส่ชื่อของคุณเพื่อเริ่มต้น';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

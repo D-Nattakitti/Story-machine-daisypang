@@ -3,50 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บ้านวาดฝันของบอสเดซี่ปาง</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ของขวัญน้องเหมียวสุดคิ้วท์! 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&family=Charmonman:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="initial-setup-container">
-        <img src="images/300-300.webp" alt="ตกแต่งตู้" class="header-image">
-        <h1>ยินดีต้อนรับสู่ร้านอบอุ่น</h1>
-        <input type="text" id="userNameInput" placeholder="ให้เราเรียกคุณว่าอะไรดี?">
-        <button id="saveUserNameBtn">เข้าสู่ร้านค้า</button>
-        <p id="initialErrorMessage" class="error-text"></p>
+    <audio id="meow-sound" src="assets/sound-meow.mp3" preload="auto"></audio>
+    <audio id="drop-sound" src="assets/sound-drop.mp3" preload="auto"></audio>
+    <audio id="click-sound" src="assets/sound-click.mp3" preload="auto"></audio>
+
+    <div class="container">
+        <div id="home-screen" class="screen active">
+            <h1>💌 จดหมายจากน้องเหมียว 💌</h1>
+            <p class="intro-text">สวัสดีฮะ! น้องเหมียวกำลังจะมอบของขวัญสุดพิเศษให้</p>
+            <p>อยากได้อะไรนะฮะ? เลือกเลย!</p>
+            <div class="category-buttons">
+                <button data-category="dessert">🍰 ขนมหวาน</button>
+                <button data-category="drink">🥤 เครื่องดื่ม</button>
+                <button data-category="random">🎉 สุ่มทั้งหมด</button>
+            </div>
+            <p class="small-text">น้องเหมียวกำลังรออยู่นะฮะ... 🐾</p>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <div class="animation-area">
+                <video id="cat-animation" src="assets/cat-run.mp4" autoplay loop muted playsinline alt="Cat animation"></video>
+                <p id="cat-speech" class="speech-bubble hidden"></p>
+            </div>
+            <div class="result-area hidden">
+                <img id="item-image" src="" alt="Item image">
+                <p id="item-message"></p>
+
+                <div class="freebie-section hidden">
+                    <p class="freebie-title">💖 น้องเหมียวมีของแถมให้ด้วยนะฮะ! 💖</p>
+                    <img id="freebie-image" src="" alt="Freebie image" class="freebie-image">
+                    <p id="freebie-message" class="freebie-text"></p>
+                    <button id="freebie-button" class="freebie-btn" target="_blank" rel="noopener noreferrer">รับของแถมที่นี่เลย! ✨</button>
+                </div>
+                <div class="action-buttons">
+                    <button id="play-again-btn">เล่นอีกครั้ง ✨</button>
+                    <button id="view-history-btn">บันทึกของเหมียว 📚</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>🎁 กล่องสมบัติของน้องเหมียว 🎁</h2>
+            <div id="history-list" class="history-grid">
+                </div>
+            <button id="back-to-home-from-history-btn">กลับไปหาน้องเหมียว 🏠</button>
+        </div>
     </div>
 
-    <script>
-        const USER_NAME_KEY = "daisyfangUserName"; // Key สำหรับเก็บชื่อผู้ใช้
-        const COIN_COUNT_KEY = "daisyfangCoins"; // Key สำหรับเก็บเหรียญ
-        const COIN_EARN_COUNT_KEY = "daisyfangCoinEarnCount"; // Key สำหรับนับครั้งที่ได้เหรียญ
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // ตรวจสอบว่ามีชื่อผู้ใช้แล้วหรือไม่
-            if (localStorage.getItem(USER_NAME_KEY)) {
-                window.location.href = 'page3_random_selection.html'; // มีแล้ว ไปหน้า 3 เลย
-            }
-
-            // ตั้งค่าเหรียญเริ่มต้นและจำนวนครั้งที่ได้เหรียญ หากยังไม่มี
-            if (!localStorage.getItem(COIN_COUNT_KEY)) {
-                localStorage.setItem(COIN_COUNT_KEY, '0');
-            }
-            if (!localStorage.getItem(COIN_EARN_COUNT_KEY)) {
-                localStorage.setItem(COIN_EARN_COUNT_KEY, '0');
-            }
-
-            document.getElementById('saveUserNameBtn').addEventListener('click', () => {
-                const userName = document.getElementById('userNameInput').value.trim();
-                const errorMessage = document.getElementById('initialErrorMessage');
-
-                if (userName) {
-                    localStorage.setItem(USER_NAME_KEY, userName); // บันทึกชื่อผู้ใช้
-                    errorMessage.textContent = '';
-                    window.location.href = 'page3_random_selection.html'; // ไปหน้า 3
-                } else {
-                    errorMessage.textContent = 'กรุณาใส่ชื่อของคุณเพื่อเริ่มต้น';
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
