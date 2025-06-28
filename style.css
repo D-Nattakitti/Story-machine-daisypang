@@ -18,7 +18,7 @@ body {
     background: linear-gradient(135deg, #fef0f7 0%, #e0c3fc 100%); /* ไล่สีชมพู-ม่วงพาสเทล */
     color: var(--text-dark);
     overflow: hidden;
-    cursor: url('assets/paw-cursor.png'), auto; /* Cursor อุ้งเท้าแมว */
+    cursor: url('assets/paw-cursor.webp'), auto; /* Cursor อุ้งเท้าแมว */
 }
 
 .container {
@@ -77,24 +77,25 @@ body {
 
 /* Home Screen Specifics */
 #home-screen {
-    background: var(--paper-color) url('assets/bg-pattern-home.png') repeat; /* ลายแพทเทิร์นหน้าแรก */
+    
+    background: var(--paper-color) url('assets/bg-pattern-home.png') repeat; /* ลายแพทเทิร์นหน้าแรก  ไว้ค่อยมาแก้ */
     background-size: 100px;
 }
 
 /* Dynamic Backgrounds for Result Screen */
 body.theme-dessert {
     background: linear-gradient(135deg, #fce4ec 0%, #ffc0cb 100%);
-    background-image: url('assets/bg-pattern-sweet.png');
+    background-image: url('assets/bg-pattern-sweet.png'); /* ไว้ค่อยมาแก้เป็น .webp*/
     background-size: 150px;
 }
 body.theme-drink {
     background: linear-gradient(135deg, #e0f2f7 0%, #add8e6 100%);
-    background-image: url('assets/bg-pattern-drink.png');
+    background-image: url('assets/bg-pattern-drink.png'); /* ไว้ค่อยมาแก้เป็น .webp */
     background-size: 150px;
 }
 body.theme-random {
     background: linear-gradient(135deg, #fcfbe3 0%, #c3fce0 100%); /* สีสดใสผสม */
-    background-image: url('assets/bg-pattern-star.png'); /* สมมติมีลายดาว */
+    background-image: url('assets/bg-pattern-star.png'); /* ไว้ค่อยมาแก้เป็น .webp */
     background-size: 120px;
 }
 
